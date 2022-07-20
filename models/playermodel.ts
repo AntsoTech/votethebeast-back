@@ -1,6 +1,7 @@
-import IPlayer from '../interfaces/IPlayer';
-import connection from '../db-config';
 import { ResultSetHeader } from 'mysql2';
+
+import connection from '../db-config';
+import IPlayer from '../interfaces/IPlayer';
 
 // Get all Players
 const getAllPlayers = async (
@@ -9,29 +10,28 @@ const getAllPlayers = async (
   namefilter = '',
   randomBool: boolean
 ): Promise<IPlayer[]> => {
-  let sql = `SELECT * FROM players`;
+  let sql = `SELECT pl.id, pl.firstname, pl.lastname, pl.birthdate, pl.picture, pl.winnerpicture, pl.points, c.name as country, c.flag, po.name as position FROM players AS pl INNER JOIN countries AS c ON c.id = pl.idCountry INNER JOIN positions AS po ON po.id = pl.idPosition`;
   const sqlValues: string[] = [];
-  if (randomBool) {
-    sql +=
-      ' ORDER BY RAND ( ) LIMIT 2';
-  }
   if (country) {
     sql +=
-      ' INNER JOIN countries ON countries.id = players.idCountry WHERE players.idCountry = ?';
+      ' WHERE pl.idCountry = ?';
     sqlValues.push(country);
   }
   if (position) {
     sql +=
-      ' INNER JOIN positions ON positions.id = players.idPosition WHERE players.idPosition = ?';
+      ' WHERE pl.idPosition = ?';
     sqlValues.push(position);
   }
   if (namefilter) {
     if (country && position) {
-      sql += ` AND players.lastname LIKE ? OR players.firstname LIKE ?`;
+      sql += ` AND pl.lastname LIKE ? OR pl.firstname LIKE ?`;
     } else {
-      sql += ` WHERE players.lastname LIKE ? OR players.firstname LIKE ?`;
+      sql += ` WHERE pl.lastname LIKE ? OR pl.firstname LIKE ?`;
     }
     sqlValues.push(`%${namefilter}%`, `%${namefilter}%`);
+  }
+  if (randomBool) {
+    sql += ' ORDER BY RAND ( ) LIMIT 2';
   }
   const results = await connection.promise().query<IPlayer[]>(sql, sqlValues);
   return results[0];
