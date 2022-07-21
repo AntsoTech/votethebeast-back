@@ -22,7 +22,7 @@ const getAllPlayers = async (
       country,
       position,
       filter,
-      randomBool, 
+      randomBool,
       order
     );
     return res.status(200).send(allPlayers);

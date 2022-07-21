@@ -8,8 +8,8 @@ const getAllPlayers = async (
   country = '',
   position = '',
   namefilter = '',
-  randomBool: boolean, 
-  order =''
+  randomBool: boolean,
+  order = ''
 ): Promise<IPlayer[]> => {
   let sql = `SELECT pl.id, pl.firstname, pl.lastname, pl.birthdate, pl.picture, pl.winnerpicture, pl.points, c.name as country, c.flag, po.name as position, pl.idCountry, pl.idPosition FROM players AS pl INNER JOIN countries AS c ON c.id = pl.idCountry INNER JOIN positions AS po ON po.id = pl.idPosition`;
   const sqlValues: string[] = [];
@@ -37,7 +37,6 @@ const getAllPlayers = async (
   }
   const results = await connection.promise().query<IPlayer[]>(sql, sqlValues);
   return results[0];
-  
 };
 
 // Get players by ID
