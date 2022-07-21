@@ -13,14 +13,19 @@ const getAllPlayers = async (
 ): Promise<IPlayer[]> => {
   let sql = `SELECT pl.id, pl.firstname, pl.lastname, pl.birthdate, pl.picture, pl.winnerpicture, pl.points, c.name as country, c.flag, po.name as position, pl.idCountry, pl.idPosition FROM players AS pl INNER JOIN countries AS c ON c.id = pl.idCountry INNER JOIN positions AS po ON po.id = pl.idPosition`;
   const sqlValues: string[] = [];
-  if (country) {
+  if (country && !position) {
     sql += ' WHERE pl.idCountry = ?';
     sqlValues.push(country);
   }
-  if (position) {
+  if (position && !country) {
     sql += ' WHERE pl.idPosition = ?';
     sqlValues.push(position);
   }
+  if (position && country) {
+    sql += ' WHERE pl.idCountry = ? AND pl.idPosition = ?';
+    sqlValues.push(country, position);
+  }
+
   if (namefilter) {
     if (country && position) {
       sql += ` AND pl.lastname LIKE ? OR pl.firstname LIKE ?`;
