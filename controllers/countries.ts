@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import Country from '../models/countrymodel'
+
+import Country from '../models/countrymodel';
 
 // Get all countries
 const getAllCountries = async (
