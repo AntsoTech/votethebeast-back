@@ -17,11 +17,13 @@ const getAllPlayers = async (
     const country = req.query.country as string;
     const position = req.query.position as string;
     const filter = req.query.filter as string;
+    const order = req.query.order as string;
     const allPlayers = await Player.getAllPlayers(
       country,
       position,
       filter,
-      randomBool
+      randomBool, 
+      order
     );
     return res.status(200).send(allPlayers);
   } catch (err) {
