@@ -1,5 +1,6 @@
 // importe le package dotenv pour accèder au .env
 import 'dotenv/config';
+
 // importe mysql pour se connecter à la base
 import mysql, { Pool } from 'mysql2';
 

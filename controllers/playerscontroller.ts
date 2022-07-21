@@ -1,7 +1,8 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+
+import { ErrorHandler } from '../helpers/errors';
 import IPlayer from '../interfaces/IPlayer';
 import Player from '../models/playermodel';
-import { ErrorHandler } from '../helpers/errors';
 // import Joi from 'joi';
 
 // Get all players
@@ -12,11 +13,16 @@ const getAllPlayers = async (
 ) => {
   try {
     const random = req.query.random as string;
+    const randomBool = random === 'true'; // transforming a bool string into real bool
     const country = req.query.country as string;
     const position = req.query.position as string;
     const filter = req.query.filter as string;
-    const randomBool = (random === 'true') // transforming a bool string into real bool
-    const allPlayers = await Player.getAllPlayers(filter, country, position, randomBool);
+    const allPlayers = await Player.getAllPlayers(
+      country,
+      position,
+      filter,
+      randomBool
+    );
     return res.status(200).send(allPlayers);
   } catch (err) {
     next(err);
@@ -102,5 +108,5 @@ export default {
   getPlayerById,
   addNewPlayer,
   updatePlayer,
-  deletePlayer
+  deletePlayer,
 };

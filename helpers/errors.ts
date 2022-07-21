@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
 import 'dotenv/config';
+
+import { Request, Response } from 'express';
 
 class ErrorHandler extends Error {
   statusCode: number;
@@ -9,13 +10,7 @@ class ErrorHandler extends Error {
     this.message = message;
   }
 }
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const handleError = (
-  err: ErrorHandler,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const handleError = (err: ErrorHandler, req: Request, res: Response) => {
   // gèrer l'environnement PROD/DEV
   const { statusCode = 500, message } = err;
   // On affiche le message uniquement en environnement de DEV
@@ -32,6 +27,5 @@ const handleError = (
     });
   }
 };
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 export { ErrorHandler, handleError };
