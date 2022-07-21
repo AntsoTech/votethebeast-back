@@ -10,7 +10,7 @@ const getAllPlayers = async (
   namefilter = '',
   randomBool: boolean
 ): Promise<IPlayer[]> => {
-  let sql = `SELECT pl.id, pl.firstname, pl.lastname, pl.birthdate, pl.picture, pl.winnerpicture, pl.points, c.name as country, c.flag, po.name as position FROM players AS pl INNER JOIN countries AS c ON c.id = pl.idCountry INNER JOIN positions AS po ON po.id = pl.idPosition`;
+  let sql = `SELECT pl.id, pl.firstname, pl.lastname, pl.birthdate, pl.picture, pl.winnerpicture, pl.points, c.name as country, c.flag, po.name as position, pl.idCountry, pl.idPosition FROM players AS pl INNER JOIN countries AS c ON c.id = pl.idCountry INNER JOIN positions AS po ON po.id = pl.idPosition`;
   const sqlValues: string[] = [];
   if (country) {
     sql +=
@@ -42,7 +42,7 @@ const getAllPlayers = async (
 const getPlayerById = async (idPlayer: number): Promise<IPlayer> => {
   const [results] = await connection
     .promise()
-    .query<IPlayer[]>('SELECT * FROM players WHERE id = ?', [idPlayer]);
+    .query<IPlayer[]>('SELECT pl.id, pl.firstname, pl.lastname, pl.birthdate, pl.picture, pl.winnerpicture, pl.points, c.name as country, c.flag, po.name as position, pl.idCountry, pl.idPosition FROM players AS pl INNER JOIN countries AS c ON c.id = pl.idCountry INNER JOIN positions AS po ON po.id = pl.idPosition WHERE pl.id = ?', [idPlayer]);
   return results[0];
 };
 
