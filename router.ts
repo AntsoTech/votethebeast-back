@@ -1,6 +1,7 @@
 import { Express } from 'express';
 
 import playersController from './controllers/playerscontroller';
+import countriesController from './controllers/countries'
 
 const setupRoutes = (server: Express) => {
   ////// PLAYERS //////
@@ -19,6 +20,13 @@ const setupRoutes = (server: Express) => {
 
   // Delete player
   server.delete('/api/players/:idPlayer', playersController.deletePlayer);
+
+   ////// COUNTRIES //////
+  // Get all countries
+  server.get('/api/countries', countriesController.getAllCountries);
+  
 };
+
+ 
 
 export default setupRoutes;
