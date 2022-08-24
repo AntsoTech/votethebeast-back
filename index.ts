@@ -12,16 +12,16 @@ const port = process.env.PORT || 3000;
 
 // à faire des requetes axios
 const corsOptions: cors.CorsOptions = {
-  // for cookies
-  credentials: true,
   // must-have for frontend to communicate with API
   origin: [
     'http://localhost:3001',
     'http://localhost:3000',
     'https://votethebeast-antsotech.vercel.app/',
     'https://votethebeast.vercel.app/',
-    'https://votethebeast-jnxwl1duu-antsotech.vercel.app'
+    'https://votethebeast-jnxwl1duu-antsotech.vercel.app',
   ],
+  // for cookies
+  credentials: true,
 };
 
 // middleware cors
