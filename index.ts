@@ -15,7 +15,7 @@ const corsOptions: cors.CorsOptions = {
   // for cookies
   credentials: true,
   // must-have for frontend to communicate with API
-  origin: ['http://localhost:3001', 'http://localhost:3000'],
+  origin: ['http://localhost:3001', 'http://localhost:3000', 'https://votethebeast-antsotech.vercel.app/', 'https://votethebeast.vercel.app/'],
 };
 
 // middleware cors
