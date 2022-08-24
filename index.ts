@@ -1,9 +1,11 @@
-import express from 'express';
+import 'dotenv/config';
+
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express, { NextFunction, Request, Response } from 'express';
+
 import { handleError } from './helpers/errors';
 import setupRoutes from './router';
-import 'dotenv/config';
-import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,7 +15,7 @@ const corsOptions: cors.CorsOptions = {
   // for cookies
   credentials: true,
   // must-have for frontend to communicate with API
-  origin: ['https://test-deploy-fullstack.vercel.app', 'http://localhost:3000'],
+  origin: ['http://localhost:3001', 'http://localhost:3000'],
 };
 
 // middleware cors
