@@ -16,8 +16,8 @@ const corsOptions: cors.CorsOptions = {
   origin: [
     'http://localhost:3001',
     'http://localhost:3000',
-    'https://votethebeast-antsotech.vercel.app/',
-    'https://votethebeast.vercel.app/',
+    'https://votethebeast-antsotech.vercel.app',
+    'https://votethebeast.vercel.app',
     'https://votethebeast-jnxwl1duu-antsotech.vercel.app',
   ],
   // for cookies
@@ -30,7 +30,6 @@ app.use(cors(corsOptions));
 //middleware perso pour ajouter les headers nécessaires à react-admin
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Allow-Origin','*');
   res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
   next();
 });
